@@ -7,36 +7,39 @@ export const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const signUpHandler = async () => {
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+  const signUpHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
 
-    const authResult = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    console.log(authResult);
+      const authResult = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(authResult);
+    } catch (e) {
+      console.error(e.message);
+    }
   };
 
   return (
     <form onSubmit={signUpHandler}>
-      <label htmlFor="user-email">
-        <input id="user-email" ref={emailRef}></input>
-      </label>
+      <div>
+        <label htmlFor="user-email">
+          <input id="user-email" ref={emailRef}></input>
+        </label>
+      </div>
+      <div>
+        <label htmlFor="user-password">
+          <input id="user-password" ref={passwordRef}></input>
+        </label>
+      </div>
 
-      <label htmlFor="user-password">
-        <input id="user-password" ref={passwordRef}></input>
-      </label>
-
-      <button type="submit"></button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 };
 
-
-const SignUpPage = () => {
-    return <SignUp />;
-  };
-
-export default SignUpPage;
+export default SignUp;
